@@ -1,0 +1,19 @@
+/* KALAKRITI: cursor-following product image zoom */
+@media (hover: hover) and (pointer: fine) and (min-width: 750px) {
+  media-gallery .product-media-container--image[data-kalakriti-hover-zoom="active"] .product-media {
+    overflow: hidden;
+  }
+
+  media-gallery .product-media-container--image[data-kalakriti-hover-zoom="active"] .product-media__image {
+    transform: scale(2.4);
+    transform-origin: var(--kalakriti-zoom-x, 50%) var(--kalakriti-zoom-y, 50%);
+    transition: transform 80ms linear;
+    will-change: transform;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  media-gallery .product-media-container--image .product-media__image {
+    transition: none;
+  }
+}

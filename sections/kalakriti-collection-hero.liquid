@@ -1,0 +1,77 @@
+{% liquid
+  assign hero_image_url = blank
+  assign hero_alt = collection.title
+  assign hero_width = 1600
+  assign hero_height = 770
+
+  case collection.handle
+    when 'sarees-under-2-000'
+      assign hero_image_url = 'https://cdn.shopify.com/s/files/1/0780/9250/1179/files/kalakriti-category-1.png?v=1794464449'
+      assign hero_alt = 'KALAKRITI sarees collection ₹0–₹2,000'
+      assign hero_height = 770
+    when 'sarees-2-000-4-999'
+      assign hero_image_url = 'https://cdn.shopify.com/s/files/1/0780/9250/1179/files/kalakriti-category-2.png?v=1794464456'
+      assign hero_alt = 'KALAKRITI sarees collection ₹2,000–₹10,000'
+      assign hero_height = 1074
+    when 'sarees-5-000-14-999'
+      assign hero_image_url = 'https://cdn.shopify.com/s/files/1/0780/9250/1179/files/kalakriti-category-3.png?v=1794464464'
+      assign hero_alt = 'KALAKRITI sarees collection ₹10,000–₹25,000'
+      assign hero_height = 949
+    when 'sarees-15-000'
+      assign hero_image_url = 'https://cdn.shopify.com/s/files/1/0780/9250/1179/files/kalakriti-category-4.png?v=1794464472'
+      assign hero_alt = 'KALAKRITI sarees collection ₹25,000 and above'
+      assign hero_height = 814
+  endcase
+%}
+
+{% if hero_image_url != blank %}
+  <section class="kalakriti-collection-hero" aria-label="{{ collection.title | escape }}">
+    <img
+      src="{{ hero_image_url }}"
+      alt="{{ hero_alt | escape }}"
+      width="{{ hero_width }}"
+      height="{{ hero_height }}"
+      loading="eager"
+      fetchpriority="high"
+    >
+  </section>
+{% endif %}
+
+{% stylesheet %}
+  .kalakriti-collection-hero {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    line-height: 0;
+    background: #f8f2e7;
+  }
+  .kalakriti-collection-hero img {
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    object-fit: cover;
+    object-position: center;
+  }
+  @media screen and (max-width: 749px) {
+    .kalakriti-collection-hero {
+      height: 280px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "KALAKRITI collection hero",
+  "enabled_on": {
+    "templates": ["collection"]
+  },
+  "settings": [],
+  "presets": [
+    {
+      "name": "KALAKRITI collection hero"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,191 @@
+{% liquid
+  assign shop_url = routes.all_products_collection_url
+%}
+
+<footer class="kalakriti-footer" aria-label="KALAKRITI footer">
+  <div class="kalakriti-footer__inner">
+    <div class="kalakriti-footer__brand">
+      <a class="kalakriti-footer__wordmark" href="{{ routes.root_url }}">KALAKRITI</a>
+      <p class="kalakriti-footer__tagline">A beauty in every detail.</p>
+      <p class="kalakriti-footer__intro">Discover sarees inspired by India's rich textile traditions, timeless colours and the artistry of dressing beautifully.</p>
+      <div class="kalakriti-footer__social">
+        <span class="kalakriti-footer__eyebrow">FOLLOW THE JOURNEY</span>
+        <div class="kalakriti-footer__social-links">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+          <a href="https://www.pinterest.com/" target="_blank" rel="noopener noreferrer">Pinterest <span aria-hidden="true">↗</span></a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">Facebook <span aria-hidden="true">↗</span></a>
+        </div>
+        <small>Social destinations are demo placeholders.</small>
+      </div>
+    </div>
+
+    <nav class="kalakriti-footer__column" aria-label="Shop links">
+      <h2>EXPLORE</h2>
+      <a href="{{ shop_url }}">Shop All Sarees</a>
+      <a href="/collections/sarees-under-2-000">₹0 – ₹2,000</a>
+      <a href="/collections/sarees-2001-9999">₹2,001 – ₹9,999</a>
+      <a href="/collections/sarees-10000-25000">₹10,000 – ₹25,000</a>
+      <a href="/collections/sarees-25001-plus">₹25,001+</a>
+      <a href="/pages/our-story">Our Story</a>
+    </nav>
+
+    <nav class="kalakriti-footer__column" aria-label="Customer care links">
+      <h2>CUSTOMER CARE</h2>
+      <a href="/pages/contact">Contact Us</a>
+      <a href="/pages/faq">Frequently Asked Questions</a>
+      <a href="/pages/saree-care">Saree Care Guide</a>
+      <a href="/pages/shipping-policy">Shipping Policy</a>
+      <a href="/pages/returns-exchanges">Returns &amp; Exchanges</a>
+    </nav>
+
+    <nav class="kalakriti-footer__column" aria-label="Information links">
+      <h2>INFORMATION</h2>
+      <a href="/pages/terms-conditions">Terms &amp; Conditions</a>
+      <a href="/pages/our-story">About KALAKRITI</a>
+      <a href="/search">Search</a>
+      <div class="kalakriti-footer__contact">
+        <span class="kalakriti-footer__eyebrow">SAY HELLO</span>
+        <a href="mailto:hello@kalakriti.example">hello@kalakriti.example</a>
+        <small>Demo contact address — replace before launch.</small>
+      </div>
+    </nav>
+  </div>
+
+  <div class="kalakriti-footer__bottom">
+    <span>© {{ 'now' | date: '%Y' }} KALAKRITI. All rights reserved.</span>
+    <span class="kalakriti-footer__demo">PORTFOLIO DEMONSTRATION STOREFRONT · SAMPLE POLICIES</span>
+  </div>
+</footer>
+
+{% stylesheet %}
+  .kalakriti-footer {
+    background: #f6f0e7;
+    color: #4b1725;
+    border-top: 1px solid #d8c6a5;
+    padding: clamp(42px, 6vw, 76px) 5vw 0;
+  }
+  .kalakriti-footer__inner {
+    width: min(100%, 1440px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.55fr 1fr 1.15fr 1fr;
+    gap: clamp(28px, 4vw, 64px);
+    padding-bottom: 54px;
+  }
+  .kalakriti-footer__wordmark {
+    display: inline-block;
+    color: #4b1725;
+    text-decoration: none;
+    font-family: Georgia, serif;
+    font-size: clamp(27px, 3vw, 39px);
+    font-weight: 600;
+    letter-spacing: .12em;
+  }
+  .kalakriti-footer__tagline {
+    margin: 7px 0 18px;
+    color: #a27a3e;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 17px;
+  }
+  .kalakriti-footer__intro {
+    max-width: 340px;
+    margin: 0 0 28px;
+    color: #6d5550;
+    font-size: 14px;
+    line-height: 1.85;
+  }
+  .kalakriti-footer__eyebrow {
+    display: block;
+    margin-bottom: 12px;
+    color: #9a7138;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .16em;
+  }
+  .kalakriti-footer__social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px 18px;
+  }
+  .kalakriti-footer__social-links a,
+  .kalakriti-footer__column a,
+  .kalakriti-footer__contact a {
+    color: #60434a;
+    font-size: 13px;
+    line-height: 1.7;
+    text-decoration: none;
+    transition: color .2s ease;
+  }
+  .kalakriti-footer__social-links a:hover,
+  .kalakriti-footer__column a:hover,
+  .kalakriti-footer__contact a:hover {
+    color: #a27a3e;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .kalakriti-footer__social small,
+  .kalakriti-footer__contact small {
+    display: block;
+    margin-top: 8px;
+    color: #947f78;
+    font-size: 10px;
+    line-height: 1.5;
+  }
+  .kalakriti-footer__column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .kalakriti-footer__column h2 {
+    margin: 4px 0 12px;
+    color: #4b1725;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+  }
+  .kalakriti-footer__contact {
+    margin-top: 16px;
+  }
+  .kalakriti-footer__bottom {
+    width: min(100%, 1440px);
+    margin: 0 auto;
+    min-height: 62px;
+    border-top: 1px solid #ddcfb8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    color: #826c65;
+    font-size: 10px;
+    letter-spacing: .04em;
+  }
+  .kalakriti-footer__demo {
+    color: #9a7138;
+    letter-spacing: .12em;
+    text-align: right;
+  }
+  @media screen and (max-width: 900px) {
+    .kalakriti-footer__inner {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 38px 28px;
+    }
+  }
+  @media screen and (max-width: 560px) {
+    .kalakriti-footer { padding-inline: 22px; }
+    .kalakriti-footer__inner { grid-template-columns: 1fr 1fr; gap: 34px 18px; }
+    .kalakriti-footer__brand { grid-column: 1 / -1; }
+    .kalakriti-footer__bottom { align-items: flex-start; flex-direction: column; justify-content: center; padding: 18px 0; }
+    .kalakriti-footer__demo { text-align: left; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "KALAKRITI footer",
+  "enabled_on": { "groups": ["footer"] },
+  "settings": [],
+  "presets": [{ "name": "KALAKRITI footer" }]
+}
+{% endschema %}

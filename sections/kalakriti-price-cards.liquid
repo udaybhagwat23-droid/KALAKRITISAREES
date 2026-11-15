@@ -1,0 +1,127 @@
+{% liquid
+  assign collection_one = section.settings.collection_1
+  assign collection_two = section.settings.collection_2
+  assign collection_three = section.settings.collection_3
+  assign collection_four = section.settings.collection_4
+%}
+<section id="kalakriti-price-{{ section.id }}" class="kpc-section" style="--kpc-top:{{ section.settings.padding-block-start }}px;--kpc-bottom:{{ section.settings.padding-block-end }}px">
+  <div class="kpc-frame">
+    <div class="kpc-shell page-width">
+      <header class="kpc-brand">
+        <img class="kpc-logo" src="https://cdn.shopify.com/s/files/1/0780/9250/1179/files/image_3.png?v=1793984751" alt="KALAKRITI SAREES — peacock brand logo" loading="eager" width="1600" height="512">
+      </header>
+      <div class="kpc-intro">
+        <h3>{{ section.settings.heading | escape }}</h3>
+        <p><span>✦</span>{{ section.settings.tagline | escape }}<span>✦</span></p>
+      </div>
+      <div class="kpc-grid">
+        {% assign price_collections = 'one,two,three,four' | split: ',' %}
+        {% for slot in price_collections %}
+          {% case slot %}
+            {% when 'one' %}{% assign target_collection = collection_one %}{% assign card_label = section.settings.label_1 %}{% assign card_subtitle = 'Affordable everyday styles' %}{% assign card_image_url = 'https://cdn.shopify.com/s/files/1/0780/9250/1179/files/kalakriti-price-card-under-2000.png?v=1794481638' %}
+            {% when 'two' %}{% assign target_collection = collection_two %}{% assign card_label = section.settings.label_2 %}{% assign card_subtitle = 'Festive favourites & timeless classics' %}{% assign card_image_url = 'https://cdn.shopify.com/s/files/1/0780/9250/1179/files/kalakriti-price-card-2000-10000.png?v=1794481646' %}
+            {% when 'three' %}{% assign target_collection = collection_three %}{% assign card_label = section.settings.label_3 %}{% assign card_subtitle = 'Statement silks & occasion wear' %}{% assign card_image_url = 'https://cdn.shopify.com/s/files/1/0780/9250/1179/files/kalakriti-price-card-10000-25000.png?v=1794481654' %}
+            {% when 'four' %}{% assign target_collection = collection_four %}{% assign card_label = section.settings.label_4 %}{% assign card_subtitle = 'Premium handloom & heirloom silks' %}{% assign card_image_url = 'https://cdn.shopify.com/s/files/1/0780/9250/1179/files/kalakriti-price-card-25000-plus.png?v=1794481662' %}
+          {% endcase %}
+          {% if target_collection != blank %}
+            {% assign card_image = target_collection.image | default: target_collection.products.first.featured_image %}
+            <a class="kpc-card" href="{{ target_collection.url }}" aria-label="Explore {{ card_label | escape }} sarees">
+              <span class="kpc-photo">
+                {% if card_image_url != blank %}
+                  <img src="{{ card_image_url }}" alt="{{ card_label | escape }}" loading="lazy" width="900" height="1125">
+                {% elsif card_image != blank %}
+                  {{ card_image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '320, 480, 640, 800, 1000', alt: card_label }}
+                {% else %}<span class="kpc-fallback">K</span>{% endif %}
+              </span>
+              <span class="kpc-copy">
+                <strong class="kpc-range">{{ card_label }}</strong>
+                <span class="kpc-subtitle">{{ card_subtitle }}</span>
+                <span class="kpc-cta">Explore Sarees <span aria-hidden="true">→</span></span>
+              </span>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <footer class="kpc-footer">
+                <div class="kpc-footer-name">K A L A K R I T I  S A R E E S</div>
+        <div class="kpc-footer-rule"><span></span><b>✥</b><span></span></div>
+        <p>A LEGACY OF ELEGANCE</p>
+      </footer>
+    </div>
+  </div>
+</section>
+{% style %}
+#kalakriti-price-{{ section.id }}{position:relative;isolation:isolate;overflow:hidden;padding-block:var(--kpc-top) var(--kpc-bottom);color:#55202b;background:linear-gradient(135deg,#f4dfb5 0%,#ffefd0 23%,#f6dfb5 53%,#f9e9c9 77%,#e8c58e 100%)}
+#kalakriti-price-{{ section.id }}:before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(ellipse at 3% 28%,#fff8e4 0,transparent 23%),radial-gradient(ellipse at 98% 20%,#fff5d9 0,transparent 25%),repeating-linear-gradient(135deg,transparent 0 28px,#a77b3710 29px 30px);pointer-events:none}
+#kalakriti-price-{{ section.id }} .kpc-frame{position:relative;margin:12px;border:2px solid #bd914b;border-radius:42px;padding:24px 0 0;box-shadow:inset 0 0 0 5px #fff1d2,inset 0 0 0 7px #c9a15d,0 8px 28px #60371b24}
+#kalakriti-price-{{ section.id }} .kpc-shell.page-width{position:relative;width:100%;max-width:1480px;margin-inline:auto;padding-inline:clamp(18px,3vw,44px);box-sizing:border-box}
+#kalakriti-price-{{ section.id }} .kpc-brand{display:grid;grid-template-columns:130px 1fr 130px;align-items:center;justify-items:center;gap:14px;max-width:1000px;margin:0 auto 4px;text-align:center}
+#kalakriti-price-{{ section.id }} .kpc-peacock svg{display:block;width:112px;height:142px;filter:drop-shadow(0 4px 3px #563b1c30)}
+#kalakriti-price-{{ section.id }} .kpc-feather svg{display:block;width:92px;height:136px;transform:rotate(13deg)}
+#kalakriti-price-{{ section.id }} .kpc-brand-text h2{margin:3px 0;color:#85531d;font-family:var(--font-heading--family);font-size:clamp(2rem,4.2vw,3.35rem);font-weight:700;letter-spacing:.13em;line-height:1.12;text-shadow:0 1px #fff3d5}
+#kalakriti-price-{{ section.id }} .kpc-brand-rule{display:flex;align-items:center;justify-content:center;gap:12px;color:#9b712e;font-size:1.25rem}
+#kalakriti-price-{{ section.id }} .kpc-brand-rule span{display:block;width:min(26vw,180px);height:1px;background:linear-gradient(90deg,transparent,#986d2c)}
+#kalakriti-price-{{ section.id }} .kpc-brand-rule span:last-child{transform:scaleX(-1)}
+#kalakriti-price-{{ section.id }} .kpc-intro{text-align:center;margin:0 auto 24px}
+#kalakriti-price-{{ section.id }} .kpc-intro h3{margin:0;color:#5d1d2a;font-family:var(--font-heading--family);font-size:clamp(1.7rem,3.2vw,2.65rem);font-style:italic;font-weight:700;line-height:1.12}
+#kalakriti-price-{{ section.id }} .kpc-intro p{display:flex;align-items:center;justify-content:center;gap:12px;margin:8px 0 0;color:#6e4b30;font-size:.8rem;font-weight:600;letter-spacing:.23em}
+#kalakriti-price-{{ section.id }} .kpc-intro p span{color:#a77b37}
+#kalakriti-price-{{ section.id }} .kpc-grid{display:grid;width:100%;max-width:1160px;margin-inline:auto;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.7vw,22px);align-items:stretch;justify-content:center;box-sizing:border-box}
+#kalakriti-price-{{ section.id }} .kpc-card{position:relative;display:flex;min-width:0;flex-direction:column;overflow:hidden;text-decoration:none;color:#5b202b;background:#f6e4bd;border:2px solid #b98a45;border-radius:25px 25px 30px 30px;box-shadow:0 5px 0 #d6b06c,0 9px 18px #58371926;transition:transform .25s ease,box-shadow .25s ease}
+#kalakriti-price-{{ section.id }} .kpc-card:before{content:"";position:absolute;z-index:2;inset:5px;border:1px solid #fbecc9;border-radius:19px 19px 24px 24px;pointer-events:none}
+#kalakriti-price-{{ section.id }} .kpc-card:hover{transform:translateY(-5px);box-shadow:0 7px 0 #d6b06c,0 14px 25px #58371938}
+#kalakriti-price-{{ section.id }} .kpc-photo{display:block;width:100%;aspect-ratio:1/1;height:auto;overflow:hidden;background:#f8f2e7}
+#kalakriti-price-{{ section.id }} .kpc-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .45s ease}
+#kalakriti-price-{{ section.id }} .kpc-card:hover .kpc-photo img{transform:none}
+#kalakriti-price-{{ section.id }} .kpc-fallback{display:grid;place-items:center;width:100%;height:100%;font-family:serif;font-size:5rem;color:#6a2634;background:#e2c28b}
+#kalakriti-price-{{ section.id }} .kpc-copy{display:flex;flex:0 0 auto;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px 8px 9px;background:linear-gradient(180deg,#f9e9c9,#efd7a8)}
+#kalakriti-price-{{ section.id }} .kpc-range{display:flex;align-items:center;justify-content:center;width:100%;min-height:2.4em;padding-inline:3px;color:#681b2c;font-family:var(--font-heading--family);font-size:clamp(1.05rem,1.55vw,1.52rem);font-weight:800;line-height:1.2;text-align:center;white-space:normal;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"tnum" 1}
+#kalakriti-price-{{ section.id }} .kpc-ornament{display:none}
+#kalakriti-price-{{ section.id }} .kpc-subtitle{display:block;margin-top:4px;color:#68452d;font-family:var(--font-heading--family);font-size:clamp(.78rem,1vw,.98rem);font-style:italic}
+#kalakriti-price-{{ section.id }} .kpc-cta{display:inline-flex;align-items:center;gap:9px;margin-top:13px;padding:9px 17px;border:1px solid #8f4c35;border-radius:999px;background:linear-gradient(180deg,#741d2c,#4d101e);color:#fff2d9;font-family:var(--font-heading--family);font-size:.76rem;font-weight:500;letter-spacing:.015em;box-shadow:0 2px 4px #57221935}
+#kalakriti-price-{{ section.id }} .kpc-footer{display:flex;flex-direction:column;align-items:center;justify-content:center;margin:18px auto 0;padding:0 0 15px;color:#81551e;text-align:center}
+#kalakriti-price-{{ section.id }} .kpc-footer-mark{font-size:2rem;line-height:1;color:#a77b37}
+#kalakriti-price-{{ section.id }} .kpc-footer-name{margin-top:3px;font-family:var(--font-heading--family);font-size:1.05rem;letter-spacing:.26em}
+#kalakriti-price-{{ section.id }} .kpc-footer-rule{display:flex;align-items:center;justify-content:center;gap:12px;color:#9b712e}
+#kalakriti-price-{{ section.id }} .kpc-footer-rule span{display:block;width:min(28vw,220px);height:1px;background:#a77b37}
+#kalakriti-price-{{ section.id }} .kpc-footer-rule b{font-size:1.1rem}
+#kalakriti-price-{{ section.id }} .kpc-footer p{margin:0;font-size:.65rem;letter-spacing:.28em}
+@media(max-width:990px){#kalakriti-price-{{ section.id }} .kpc-grid{max-width:760px;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}#kalakriti-price-{{ section.id }} .kpc-photo{aspect-ratio:1/1;height:auto}#kalakriti-price-{{ section.id }} .kpc-range{font-size:clamp(1rem,2.6vw,1.35rem)}}
+@media(max-width:749px){#kalakriti-price-{{ section.id }} .kpc-shell.page-width{padding-inline:12px}#kalakriti-price-{{ section.id }} .kpc-grid{max-width:100%}#kalakriti-price-{{ section.id }} .kpc-frame{margin:5px;border-radius:22px;padding-top:13px}#kalakriti-price-{{ section.id }} .kpc-brand{grid-template-columns:54px 1fr 54px;gap:3px;margin-bottom:9px}#kalakriti-price-{{ section.id }} .kpc-peacock svg{width:48px;height:70px}#kalakriti-price-{{ section.id }} .kpc-feather svg{width:42px;height:70px}#kalakriti-price-{{ section.id }} .kpc-brand-text h2{font-size:clamp(1.05rem,4.8vw,1.55rem);letter-spacing:.045em}#kalakriti-price-{{ section.id }} .kpc-brand-rule{font-size:.8rem;gap:5px}#kalakriti-price-{{ section.id }} .kpc-brand-rule span{width:35px}#kalakriti-price-{{ section.id }} .kpc-intro{margin-bottom:14px}#kalakriti-price-{{ section.id }} .kpc-intro h3{font-size:1.2rem}#kalakriti-price-{{ section.id }} .kpc-intro p{font-size:.58rem;letter-spacing:.1em;gap:6px}#kalakriti-price-{{ section.id }} .kpc-grid{gap:9px}#kalakriti-price-{{ section.id }} .kpc-card{border-radius:13px 13px 16px 16px;border-width:1px}#kalakriti-price-{{ section.id }} .kpc-card:before{inset:3px;border-radius:10px}#kalakriti-price-{{ section.id }} .kpc-photo{aspect-ratio:1/1;height:auto}#kalakriti-price-{{ section.id }} .kpc-copy{padding:7px 4px 8px}#kalakriti-price-{{ section.id }} .kpc-range{font-size:clamp(.78rem,3.5vw,1.05rem);min-height:2.4em;white-space:normal}#kalakriti-price-{{ section.id }} .kpc-ornament{font-size:.9rem;margin-top:4px}#kalakriti-price-{{ section.id }} .kpc-subtitle{font-size:.68rem;margin-top:3px}#kalakriti-price-{{ section.id }} .kpc-cta{font-size:.52rem;padding:7px 8px;margin-top:8px;gap:4px}#kalakriti-price-{{ section.id }} .kpc-footer{margin-top:12px;padding-bottom:8px}#kalakriti-price-{{ section.id }} .kpc-footer-name{font-size:.75rem;letter-spacing:.13em}#kalakriti-price-{{ section.id }} .kpc-footer-rule span{width:45px}#kalakriti-price-{{ section.id }} .kpc-footer p{font-size:.52rem;letter-spacing:.15em}}
+
+/* Desktop refinement: closer to the compact reference composition */
+@media(min-width:991px){
+#kalakriti-price-{{ section.id }} .kpc-frame{padding-top:12px}
+#kalakriti-price-{{ section.id }} .kpc-brand{grid-template-columns:105px 1fr 105px;max-width:900px;margin-bottom:0}
+#kalakriti-price-{{ section.id }} .kpc-peacock svg{width:88px;height:108px}
+#kalakriti-price-{{ section.id }} .kpc-feather svg{width:72px;height:108px}
+#kalakriti-price-{{ section.id }} .kpc-brand-text h2{font-family:Georgia,'Times New Roman',serif;font-size:clamp(2rem,3vw,2.65rem);letter-spacing:.16em}
+#kalakriti-price-{{ section.id }} .kpc-intro{margin-bottom:17px}
+#kalakriti-price-{{ section.id }} .kpc-intro h3{font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.65rem,2.5vw,2.2rem)}
+#kalakriti-price-{{ section.id }} .kpc-photo{display:block;width:100%;height:auto;aspect-ratio:1/1;flex:0 0 auto;overflow:hidden;background:#f8f2e7}
+#kalakriti-price-{{ section.id }} .kpc-copy{padding:7px 8px 8px}
+#kalakriti-price-{{ section.id }} .kpc-range{font-family:Georgia,'Times New Roman',serif;font-size:clamp(1.05rem,1.35vw,1.35rem)}
+#kalakriti-price-{{ section.id }} .kpc-subtitle{font-family:Georgia,'Times New Roman',serif}
+#kalakriti-price-{{ section.id }} .kpc-cta{margin-top:9px;font-family:Georgia,'Times New Roman',serif;padding:8px 16px}
+}
+
+/* Authentic uploaded KALAKRITI brand logo */
+#kalakriti-price-{{ section.id }} .kpc-brand{display:flex;align-items:center;justify-content:center;width:100%;max-width:500px;margin:0 auto 6px;padding:0;text-align:center}
+#kalakriti-price-{{ section.id }} .kpc-logo{display:block;width:50%;max-width:410px;height:auto;max-height:105px;object-fit:contain;object-position:center;mix-blend-mode:multiply}
+@media(max-width:749px){
+#kalakriti-price-{{ section.id }} .kpc-brand{max-width:100%;margin-bottom:8px}
+#kalakriti-price-{{ section.id }} .kpc-logo{width:50%;max-width:100%;max-height:55px}
+}
+
+/* Compact price cards: crop vertical image padding and reduce total card height */
+#kalakriti-price-{{ section.id }} .kpc-photo{display:block;width:100%;height:auto;aspect-ratio:4/3;flex:0 0 auto;overflow:hidden;background:#f8f2e7}
+#kalakriti-price-{{ section.id }} .kpc-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center center}
+#kalakriti-price-{{ section.id }} .kpc-fallback{height:100%}
+#kalakriti-price-{{ section.id }} .kpc-copy{flex:0 0 auto;padding:6px 7px 7px}
+#kalakriti-price-{{ section.id }} .kpc-range{min-height:0}
+#kalakriti-price-{{ section.id }} .kpc-cta{margin-top:7px;padding:7px 13px}
+
+{% endstyle %}
+{% schema %}
+{"name":"KALAKRITI price cards","settings":[{"type":"text","id":"heading","label":"Section heading","default":"Shop Your Dream Saree Now"},{"type":"text","id":"tagline","label":"Section tagline","default":"TIMELESS SAREES. FOREVER YOURS."},{"type":"collection","id":"collection_1","label":"First price collection"},{"type":"text","id":"label_1","label":"First price label","default":"₹0 – ₹2,000"},{"type":"collection","id":"collection_2","label":"Second price collection"},{"type":"text","id":"label_2","label":"Second price label","default":"₹2,000 – ₹10,000"},{"type":"collection","id":"collection_3","label":"Third price collection"},{"type":"text","id":"label_3","label":"Third price label","default":"₹10,000 – ₹25,000"},{"type":"collection","id":"collection_4","label":"Fourth price collection"},{"type":"text","id":"label_4","label":"Fourth price label","default":"₹25,000+"},{"type":"range","id":"padding-block-start","label":"Top spacing","min":0,"max":100,"step":2,"unit":"px","default":28},{"type":"range","id":"padding-block-end","label":"Bottom spacing","min":0,"max":100,"step":2,"unit":"px","default":40}],"presets":[{"name":"KALAKRITI price cards"}]}
+{% endschema %}

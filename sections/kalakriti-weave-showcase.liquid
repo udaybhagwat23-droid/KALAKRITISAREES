@@ -1,0 +1,110 @@
+{% liquid
+  assign bg = section.settings.background_image
+  if section.settings.background_product != blank
+    assign bg = section.settings.background_product.featured_image
+  endif
+  assign logo = section.settings.brand_logo
+%}
+<section id="kw-{{ section.id }}" class="kw" style="--kw-top:{{ section.settings.padding-block-start }}px;--kw-bottom:{{ section.settings.padding-block-end }}px">
+  <div class="kw__bg" aria-hidden="true">
+    {% if bg != blank %}{{ bg | image_url: width: 2600 | image_tag: loading: 'lazy', widths: '900, 1400, 1900, 2200, 2600', alt: '', class: 'kw__bg-img' }}{% endif %}
+  </div>
+  <div class="kw__shade" aria-hidden="true"></div>
+  <div class="kw__inner page-width">
+    <div class="kw__brand">
+      {% if logo != blank %}
+        {{ logo | image_url: width: 700 | image_tag: loading: 'lazy', alt: 'KALAKRITI Sarees', class: 'kw__logo' }}
+      {% else %}
+        <img class="kw__logo" src="https://cdn.shopify.com/s/files/1/0780/9250/1179/files/image_3.png?v=1793984751" alt="KALAKRITI Sarees" loading="lazy" width="700" height="224">
+      {% endif %}
+      <span class="kw__eyebrow">THE KALAKRITI EDIT</span>
+      <h2>{{ section.settings.heading | escape }}</h2>
+      <p>{{ section.settings.intro | escape }}</p>
+      {% if section.settings.button_link != blank %}<a class="kw__button" href="{{ section.settings.button_link }}">{{ section.settings.button_label | escape }} <span aria-hidden="true">→</span></a>{% endif %}
+    </div>
+    <div class="kw__grid">
+      {% assign slots = 'one,two,three,four,five,six' | split: ',' %}
+      {% for slot in slots %}
+        {% case slot %}
+          {% when 'one' %}{% assign target = section.settings.collection_1 %}{% assign label = section.settings.label_1 %}
+          {% when 'two' %}{% assign target = section.settings.collection_2 %}{% assign label = section.settings.label_2 %}
+          {% when 'three' %}{% assign target = section.settings.collection_3 %}{% assign label = section.settings.label_3 %}
+          {% when 'four' %}{% assign target = section.settings.collection_4 %}{% assign label = section.settings.label_4 %}
+          {% when 'five' %}{% assign target = section.settings.collection_5 %}{% assign label = section.settings.label_5 %}
+          {% when 'six' %}{% assign target = section.settings.collection_6 %}{% assign label = section.settings.label_6 %}
+        {% endcase %}
+        {% if target != blank %}
+          {% assign tile_image = blank %}
+          {% for showcase_product in target.products limit: 10 %}
+            {% if showcase_product.media.size > 1 and showcase_product.media[1].media_type == 'image' %}
+              {% assign tile_image = showcase_product.media[1].preview_image %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          <a class="kw__tile" href="{{ target.url }}" aria-label="Explore {{ label | escape }}">
+            <span class="kw__photo">
+              {% if tile_image != blank %}{{ tile_image | image_url: width: 700 | image_tag: loading: 'lazy', widths: '240, 360, 500, 700', alt: label, class: 'kw__photo-img' }}{% else %}<span class="kw__placeholder">K</span>{% endif %}
+            </span>
+            <span class="kw__label">{{ label | escape }}</span><span class="kw__arrow" aria-hidden="true">↗</span>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% style %}
+#kw-{{ section.id }}{position:relative;isolation:isolate;overflow:hidden;min-height:520px;padding-block:var(--kw-top) var(--kw-bottom);color:#fff7e9;background:#29151a}
+#kw-{{ section.id }} .kw__bg{position:absolute;z-index:-2;inset:0;overflow:hidden}
+#kw-{{ section.id }} .kw__bg-img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 48%;transform:scale(1.45);filter:saturate(.92)}
+#kw-{{ section.id }} .kw__shade{position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(28,10,15,.84),rgba(34,12,18,.65) 43%,rgba(30,12,16,.48)),linear-gradient(0deg,rgba(18,8,11,.24),rgba(18,8,11,.1))}
+#kw-{{ section.id }} .kw__inner{display:grid;grid-template-columns:minmax(210px,.68fr) minmax(0,1.6fr);gap:clamp(24px,4vw,64px);align-items:center;max-width:1480px;margin:auto;padding:clamp(28px,4vw,58px) clamp(18px,3vw,44px)}
+#kw-{{ section.id }} .kw__brand{max-width:390px}
+#kw-{{ section.id }} .kw__logo{display:block;width:min(100%,270px);max-height:92px;object-fit:contain;object-position:left center;margin-bottom:25px;background:transparent;mix-blend-mode:multiply;filter:none}
+#kw-{{ section.id }} .kw__eyebrow{display:block;margin-bottom:13px;color:#e6c98d;font-size:.68rem;font-weight:700;letter-spacing:.25em}
+#kw-{{ section.id }} .kw__brand h2{margin:0;color:#fff8eb;font-family:var(--font-heading--family,Georgia,serif);font-size:clamp(2rem,3.2vw,3.35rem);font-weight:600;line-height:1.08}
+#kw-{{ section.id }} .kw__brand p{max-width:34ch;margin:18px 0 25px;color:#f3e5d5;font-size:clamp(.9rem,1.1vw,1.02rem);line-height:1.7}
+#kw-{{ section.id }} .kw__button{display:inline-flex;align-items:center;gap:13px;padding:12px 19px;border:1px solid #d4b16e;border-radius:2px;background:rgba(73,20,31,.78);color:#fff3dc;text-decoration:none;font-size:.72rem;font-weight:700;letter-spacing:.12em;transition:background .25s ease}
+#kw-{{ section.id }} .kw__button:hover{background:#7a2636}
+#kw-{{ section.id }} .kw__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.35vw,18px)}
+#kw-{{ section.id }} .kw__tile{position:relative;display:flex;min-width:0;flex-direction:column;overflow:hidden;padding:11px 11px 14px;border:2px solid rgba(230,203,151,.9);border-radius:4px;background:rgba(27,13,17,.48);color:#fff8eb;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.16);backdrop-filter:blur(5px);transition:transform .28s ease,border-color .28s ease,background .28s ease}
+#kw-{{ section.id }} .kw__tile:hover{transform:translateY(-3px);border-color:#f0d49c;background:rgba(36,13,20,.72)}
+#kw-{{ section.id }} .kw__photo{display:block;width:100%;aspect-ratio:3/4;overflow:hidden;background:rgba(255,255,255,.1)}
+#kw-{{ section.id }} .kw__photo-img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+#kw-{{ section.id }} .kw__tile:hover .kw__photo-img{transform:scale(1.08)}
+#kw-{{ section.id }} .kw__placeholder{display:grid;width:100%;height:100%;place-items:center;color:#e8d3ac;font:2.5rem Georgia,serif}
+#kw-{{ section.id }} .kw__label{display:flex;align-items:center;justify-content:center;min-height:46px;padding:10px 16px 0;color:#fff5e6;font-family:var(--font-heading--family,Georgia,serif);font-size:clamp(.78rem,1vw,1rem);font-weight:600;text-align:center}
+#kw-{{ section.id }} .kw__arrow{position:absolute;right:12px;bottom:14px;color:#e6c98d;opacity:0;transition:opacity .2s ease}
+#kw-{{ section.id }} .kw__tile:hover .kw__arrow{opacity:1}
+@media(max-width:900px){#kw-{{ section.id }} .kw__inner{grid-template-columns:minmax(190px,.7fr) minmax(0,1.3fr);gap:22px}#kw-{{ section.id }} .kw__grid{gap:12px}#kw-{{ section.id }} .kw__tile{padding:9px 9px 12px}}
+@media(max-width:749px){#kw-{{ section.id }}{min-height:0}#kw-{{ section.id }} .kw__bg-img{transform:scale(1.6)}#kw-{{ section.id }} .kw__shade{background:linear-gradient(180deg,rgba(28,10,15,.84),rgba(28,10,15,.64) 45%,rgba(28,10,15,.8))}#kw-{{ section.id }} .kw__inner{grid-template-columns:1fr;gap:24px;padding:30px 14px}#kw-{{ section.id }} .kw__brand{max-width:100%;text-align:center}#kw-{{ section.id }} .kw__logo{width:min(62%,220px);max-height:68px;margin:0 auto 16px;object-position:center}#kw-{{ section.id }} .kw__eyebrow{font-size:.6rem;margin-bottom:8px}#kw-{{ section.id }} .kw__brand h2{font-size:clamp(1.7rem,7vw,2.3rem)}#kw-{{ section.id }} .kw__brand p{margin:10px auto 16px;font-size:.85rem}#kw-{{ section.id }} .kw__button{padding:10px 15px;font-size:.65rem}#kw-{{ section.id }} .kw__grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}#kw-{{ section.id }} .kw__tile{padding:7px 7px 10px}#kw-{{ section.id }} .kw__photo{aspect-ratio:3/4}#kw-{{ section.id }} .kw__label{min-height:34px;padding-top:7px;font-size:.78rem}#kw-{{ section.id }} .kw__arrow{display:none}}
+@media(prefers-reduced-motion:reduce){#kw-{{ section.id }} .kw__tile,#kw-{{ section.id }} .kw__photo-img,#kw-{{ section.id }} .kw__button{transition:none}}
+{% endstyle %}
+{% schema %}
+{
+  "name": "KALAKRITI weave showcase",
+  "settings": [
+    {"type":"product","id":"background_product","label":"Background saree product"},
+    {"type":"image_picker","id":"background_image","label":"Background image fallback"},
+    {"type":"image_picker","id":"brand_logo","label":"Brand logo"},
+    {"type":"text","id":"heading","label":"Heading","default":"Discover Iconic Weaves"},
+    {"type":"textarea","id":"intro","label":"Introduction","default":"A celebration of India's timeless weaving traditions, brought together in one collection."},
+    {"type":"text","id":"button_label","label":"Button label","default":"EXPLORE ALL WEAVES"},
+    {"type":"url","id":"button_link","label":"Button link"},
+    {"type":"collection","id":"collection_1","label":"Collection 1"},
+    {"type":"text","id":"label_1","label":"Collection 1 label","default":"Kanjivaram"},
+    {"type":"collection","id":"collection_2","label":"Collection 2"},
+    {"type":"text","id":"label_2","label":"Collection 2 label","default":"Banarasi"},
+    {"type":"collection","id":"collection_3","label":"Collection 3"},
+    {"type":"text","id":"label_3","label":"Collection 3 label","default":"Narayanpeth"},
+    {"type":"collection","id":"collection_4","label":"Collection 4"},
+    {"type":"text","id":"label_4","label":"Collection 4 label","default":"Paithani"},
+    {"type":"collection","id":"collection_5","label":"Collection 5"},
+    {"type":"text","id":"label_5","label":"Collection 5 label","default":"Gopuram"},
+    {"type":"collection","id":"collection_6","label":"Collection 6"},
+    {"type":"text","id":"label_6","label":"Collection 6 label","default":"Silk & Silk-Blend"},
+    {"type":"range","id":"padding-block-start","label":"Top spacing","min":0,"max":100,"step":2,"unit":"px","default":0},
+    {"type":"range","id":"padding-block-end","label":"Bottom spacing","min":0,"max":100,"step":2,"unit":"px","default":0}
+  ],
+  "presets": [{"name":"KALAKRITI weave showcase"}]
+}
+{% endschema %}

@@ -1,0 +1,223 @@
+{% doc %}
+  @prompt
+    Create a new section directly below the existing KALAKRITI Showcase, with the heading “Our Premium Collection”. Match the store’s existing styling, spacing and responsive layout. Under the heading, feature only the existing product Black Pochampalli Pure Silk Ikat Saree with Unstitched Blouse Piece (gid://shopify/Product/15505387552955), showing its current main image, product title, current price and a link to its product page. Use an editable product picker and editable heading so the merchant can change them later. Do not create a new product or change any existing product details. Keep all other sections unchanged.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-premium-collection-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin-inline: auto;
+    padding: 48px 24px;
+    color: #111111;
+    background: #ffffff;
+  }
+
+  .ai-premium-collection__inner-{{ ai_gen_id }} {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+  }
+
+  .ai-premium-collection__heading-{{ ai_gen_id }} {
+    margin: 0 0 28px;
+    color: inherit;
+    font-family: var(--font-heading--family, inherit);
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: var(--font-heading--weight, 700);
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .ai-premium-collection__card-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    align-items: center;
+    gap: clamp(24px, 5vw, 64px);
+    max-width: 980px;
+    margin-inline: auto;
+  }
+
+  .ai-premium-collection__media-{{ ai_gen_id }} {
+    display: block;
+    overflow: hidden;
+    border-radius: {{ settings.product_corner_radius }}px;
+    background: #f5f5f5;
+  }
+
+  .ai-premium-collection__image-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .ai-premium-collection__placeholder-{{ ai_gen_id }} {
+    position: relative;
+    display: flex;
+    aspect-ratio: 4 / 5;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+  }
+
+  .ai-premium-collection__placeholder-{{ ai_gen_id }} svg {
+    display: block;
+    width: 70%;
+    height: 70%;
+    color: #666666;
+  }
+
+  .ai-premium-collection__empty-{{ ai_gen_id }} {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    color: #333333;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .ai-premium-collection__details-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .ai-premium-collection__title-{{ ai_gen_id }} {
+    margin: 0;
+    color: inherit;
+    font-family: var(--font-heading--family, inherit);
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-weight: var(--font-heading--weight, 700);
+    line-height: 1.25;
+  }
+
+  .ai-premium-collection__price-{{ ai_gen_id }} {
+    color: #111111;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .ai-premium-collection__link-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 24px;
+    border: 1px solid #111111;
+    border-radius: {{ settings.button_border_radius_secondary }}px;
+    background: #ffffff;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .ai-premium-collection__link-{{ ai_gen_id }}:hover {
+    background: #111111;
+    color: #ffffff;
+  }
+
+  .ai-premium-collection__link-{{ ai_gen_id }}:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-premium-collection-{{ ai_gen_id }} {
+      padding: 32px 16px;
+    }
+
+    .ai-premium-collection__heading-{{ ai_gen_id }} {
+      margin-bottom: 22px;
+    }
+
+    .ai-premium-collection__card-{{ ai_gen_id }} {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 20px;
+      max-width: 520px;
+    }
+
+    .ai-premium-collection__details-{{ ai_gen_id }} {
+      align-items: center;
+      text-align: center;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-premium-collection-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-premium-collection__inner-{{ ai_gen_id }}">
+    <h2 class="ai-premium-collection__heading-{{ ai_gen_id }}">{{ block.settings.heading | escape }}</h2>
+    {% assign featured_product = block.settings.featured_product %}
+    {% if featured_product != blank %}
+      <article class="ai-premium-collection__card-{{ ai_gen_id }}">
+        <a class="ai-premium-collection__media-{{ ai_gen_id }}" href="{{ featured_product.url }}" aria-label="View {{ featured_product.title | escape }}">
+          {% if featured_product.featured_image %}
+            {{ featured_product.featured_image | image_url: width: 1200 | image_tag: class: 'ai-premium-collection__image-' | append: ai_gen_id, loading: 'lazy', alt: featured_product.featured_image.alt | default: featured_product.title }}
+          {% else %}
+            <div class="ai-premium-collection__placeholder-{{ ai_gen_id }}">
+              {{ 'product-apparel-1' | placeholder_svg_tag }}
+              <span class="ai-premium-collection__empty-{{ ai_gen_id }}">Add a main product image to display it here.</span>
+            </div>
+          {% endif %}
+        </a>
+        <div class="ai-premium-collection__details-{{ ai_gen_id }}">
+          <h3 class="ai-premium-collection__title-{{ ai_gen_id }}">{{ featured_product.title | escape }}</h3>
+          <div class="ai-premium-collection__price-{{ ai_gen_id }}">{{ featured_product.price | money }}</div>
+          <a class="ai-premium-collection__link-{{ ai_gen_id }}" href="{{ featured_product.url }}">View product</a>
+        </div>
+      </article>
+    {% else %}
+      <div class="ai-premium-collection__card-{{ ai_gen_id }}">
+        <div class="ai-premium-collection__media-{{ ai_gen_id }}">
+          <div class="ai-premium-collection__placeholder-{{ ai_gen_id }}">
+            {{ 'product-apparel-1' | placeholder_svg_tag }}
+            <span class="ai-premium-collection__empty-{{ ai_gen_id }}">Choose a product in the block settings.</span>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Premium collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Premium Collection"
+    },
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Product"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Premium collection"
+    }
+  ],
+  "tag": null,
+  "class": "premium-collection-block"
+}
+{% endschema %}
